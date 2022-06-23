@@ -2,21 +2,13 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: stock-ticker
-  labels:
-    app: stock-ticker
 spec:
-  selector:
-    matchLabels:
-      app: stock-ticker
   template:
-    metadata:
-      labels:
-        app: stock-ticker
     spec:
       containers:
         - name: stock-ticker
-          image: docker.io/tokiwong/stock-ticker:v0.0.1
-          imagePullPolicy: IfNotPresent
+          image: docker.io/tokiwong/stock-ticker:latest
+          imagePullPolicy: Always
           envFrom:
             - secretRef:
                 name: stock-ticker-env
@@ -26,3 +18,9 @@ spec:
           - name: application
             containerPort: 8080
             protocol: TCP
+          livenessProbe:
+            httpGet:
+              path: /healthz
+              port: 8080
+            initialDelaySeconds: 3
+            periodSeconds: 3

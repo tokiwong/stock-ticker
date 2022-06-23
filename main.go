@@ -8,11 +8,11 @@ import (
 
 	"github.com/caarlos0/env/v6"
 	"github.com/tokiwong/stock-ticker/pkg/config"
-	"github.com/tokiwong/stock-ticker/pkg/stocks"
+	"github.com/tokiwong/stock-ticker/pkg/data"
 )
 
 type stocksHandler struct {
-	service     stocks.Service
+	service     data.Service
 	ndays       int
 	stockSymbol string
 }
@@ -23,7 +23,7 @@ func main() {
 		log.Fatalf("unexpected error while initializing the config: %v", err)
 	}
 
-	stockSvc := stocks.NewStock(cfg.ApiUrl, cfg.ApiKey)
+	stockSvc := data.NewStock(cfg.ApiUrl, cfg.ApiKey)
 
 	http.Handle("/api/daily", &stocksHandler{
 		stockSvc,

@@ -1,4 +1,4 @@
-package stocks
+package data
 
 import (
 	"encoding/json"
@@ -75,17 +75,17 @@ func (s *alpha) GetStockData(stockSymbol string, nDays int) (*stockData, error) 
 }
 
 // computeStockData filters the StockData for the desired dates and computes the closing average
-func computeStockData(stonks *stockData, nDays int) (*stockData, error) {
+func computeStockData(stock *stockData, nDays int) (*stockData, error) {
 	output := stockData{}
-	output.Metadata = stonks.Metadata
+	output.Metadata = stock.Metadata
 	output.OutputData.NDays = nDays
 
-	dates := getDates(stonks.Timeseries, nDays)
+	dates := getDates(stock.Timeseries, nDays)
 
-	if stonks.Timeseries != nil {
+	if stock.Timeseries != nil {
 		output.Timeseries = map[string]dailyData{}
 		var sum float64
-		for match, data := range stonks.Timeseries {
+		for match, data := range stock.Timeseries {
 			if contains(dates, match) {
 				output.Timeseries[match] = data
 				c, err := strconv.ParseFloat(data.Close, 32)

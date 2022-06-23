@@ -1,4 +1,4 @@
-package stocks
+package data
 
 type stockData struct {
 	Metadata   metaData             `json:"Meta Data"`

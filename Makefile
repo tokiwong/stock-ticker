@@ -1,6 +1,8 @@
 REGISTRY ?= docker.io/tokiwong
 IMAGE = $(REGISTRY)/stock-ticker
 
+ALPHA_KEY = API_KEY=C227WD9W3LUVKVV9
+
 .PHONY: fmt
 fmt: ## Run go fmt against code.
 	go fmt ./...
@@ -15,14 +17,22 @@ vet: ## Run go vet against code.
 build: fmt vet ## Build binary.
 	go build -o bin/stonk main.go
 
+.PHONY: test
+test:
+	go test -v ./...
+
 .PHONY: run
 run: fmt vet build ## Run the app locally
-	export API_KEY=C227WD9W3LUVKVV9
+	export $(ALPHA_KEY)
 	bin/stonk
 
 .PHONY: container
 container:
 	docker build --pull -t $(IMAGE):latest .
+
+.PHONY: container-run
+container-run:
+	docker run --env $(ALPHA_KEY) --expose 8080 $(IMAGE):latest .
 
 .PHONY: container-push
 container-push:

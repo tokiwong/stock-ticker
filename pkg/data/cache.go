@@ -1,4 +1,4 @@
-package stocks
+package data
 
 import (
 	"time"

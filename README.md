@@ -4,7 +4,7 @@ Stock Ticker is a Go webservice that leverages the [Alpha Vantage](https://www.a
 
 The latest docker image can be fetched with the following command:
 ```bash
-docker pull docker.io/tokiwong/stock-ticker:v0.0.1
+docker pull docker.io/tokiwong/stock-ticker:latest
 ```
 
 ## Getting started
@@ -13,7 +13,7 @@ docker pull docker.io/tokiwong/stock-ticker:v0.0.1
 
 ### Running locally
 1. Ensure that your current dir is the project root
-1. Run `make local`
+1. Run `make run`
 1. Run `curl localhost:8080/api/daily` in a separate terminal
 
 ### Running on Kubernetes
