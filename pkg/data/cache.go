@@ -4,12 +4,12 @@ import (
 	"time"
 )
 
-type cacheData struct {
+type cData struct {
 	data        []byte
 	lastUpdated time.Time
 }
 
-func checkCache(cache map[string]cacheData, stockSymbol string) bool {
+func checkCache(cache map[string]cData, stockSymbol string) bool {
 	now := time.Now()
 	if c, ok := cache[stockSymbol]; ok {
 		if now.Sub(c.lastUpdated) < (time.Hour * 24) {

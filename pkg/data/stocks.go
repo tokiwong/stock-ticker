@@ -26,7 +26,7 @@ type alpha struct {
 	apiUrl   string
 	function string
 
-	cache map[string]cacheData
+	cache map[string]cData
 }
 
 // NewStock returns an instance of alpha
@@ -34,15 +34,15 @@ func NewStock(apiUrl, apiKey string) Service {
 	return &alpha{
 		apiKey:   apiKey,
 		apiUrl:   apiUrl,
-		cache:    map[string]cacheData{},
+		cache:    map[string]cData{},
 		function: defaultFunction,
 	}
 }
 
 // GetStockData returns daily historical stock data given a Stock Symbol and number of days
-func (s *alpha) GetStockData(stockSymbol string, nDays int) (*stockData, error) {
-	queryStr := fmt.Sprintf("apikey=%s&function=%s&symbol=%s", s.apiKey, s.function, stockSymbol)
-	u, err := url.Parse(s.apiUrl)
+func (a *alpha) GetStockData(stockSymbol string, nDays int) (*stockData, error) {
+	queryStr := fmt.Sprintf("apikey=%s&function=%s&symbol=%s", a.apiKey, a.function, stockSymbol)
+	u, err := url.Parse(a.apiUrl)
 	if err != nil {
 		return nil, err
 	}
@@ -50,8 +50,8 @@ func (s *alpha) GetStockData(stockSymbol string, nDays int) (*stockData, error) 
 	u.RawQuery = queryStr
 
 	var jsonData []byte
-	if ok := checkCache(s.cache, stockSymbol); ok {
-		jsonData = s.cache[stockSymbol].data
+	if ok := checkCache(a.cache, stockSymbol); ok {
+		jsonData = a.cache[stockSymbol].data
 	} else {
 		resp, err := http.Get(u.String())
 		if err != nil {
@@ -62,7 +62,7 @@ func (s *alpha) GetStockData(stockSymbol string, nDays int) (*stockData, error) 
 			return nil, err
 		}
 		jsonData = body
-		s.cache[stockSymbol] = cacheData{
+		a.cache[stockSymbol] = cData{
 			data:        jsonData,
 			lastUpdated: time.Now(),
 		}
