@@ -51,7 +51,7 @@ func (a *alpha) GetStockData(stockSymbol string, nDays int) (*stockData, error) 
 
 	var jsonData []byte
 	if ok := checkCache(a.cache, stockSymbol); ok {
-		jsonData = a.cache[stockSymbol].data
+		jsonData = a.cache[stockSymbol].localData
 	} else {
 		resp, err := http.Get(u.String())
 		if err != nil {
@@ -63,8 +63,8 @@ func (a *alpha) GetStockData(stockSymbol string, nDays int) (*stockData, error) 
 		}
 		jsonData = body
 		a.cache[stockSymbol] = cData{
-			data:        jsonData,
-			lastUpdated: time.Now(),
+			localData: jsonData,
+			updated:   time.Now(),
 		}
 	}
 
