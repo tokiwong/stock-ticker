@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: stock-ticker
+  labels:
+    app: stock-ticker
+spec:
+  selector:
+    matchLabels:
+      app: stock-ticker
+  template:
+    metadata:
+      labels:
+        app: stock-ticker
+    spec:
+      containers:
+        - name: stock-ticker
+          image: docker.io/tokiwong/stock-ticker:v0.0.1
+          imagePullPolicy: IfNotPresent
+          envFrom:
+            - secretRef:
+                name: stock-ticker-env
+            - configMapRef:
+                name: stock-ticker-env
+          ports:
+          - name: application
+            containerPort: 8080
+            protocol: TCP

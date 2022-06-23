@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: stock-ticker-env
+data:
+  N_DAYS: "10"
+  STOCK_TICKER: "T"
