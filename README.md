@@ -2,22 +2,28 @@
 
 Stock Ticker is a Go webservice that leverages the [Alpha Vantage](https://www.alphavantage.co/) API to return stock price history for a company over a given number of days.
 
-The latest docker image can be fetched with the following command:
-```bash
-docker pull docker.io/tokiwong/stock-ticker:latest
-```
-
 ## Getting started
 
 `stock-ticker` can be run locally and/or on Kubernetes
 
 ### Running locally
-1. Ensure that your current dir is the project root
+1. Make sure that your current dir is set to the project root
 1. Run `make run`
 1. Run `curl localhost:8080/api/daily` in a separate terminal
 
+#### Docker
+This can be run on a local docker container
+1. [How to set up Docker](https://www.docker.com/get-started/)
+1. Run `make container-run`
+1. Run `curl localhost:8080/api/daily` in a separate terminal
+
+#### kind (Kubernetes IN Docker)
+This can also be run on a local kubernetes cluster
+1. [How to set up kind](https://kind.sigs.k8s.io/docs/user/quick-start)
+1. Follow steps in [Running on Kubernetes](#running-on-kubernetes)
+
 ### Running on Kubernetes
-1. Stand up your Kubernetes cluster. If you're using a kind cluster, you can go [here](https://kind.sigs.k8s.io/docs/user/quick-start)
+1. Create a Kubernetes cluster. 
 1. Run `kubectl apply -k manifests/base` to deploy `stock-ticker`
 1. Run `kubectl port-forward svc/stock-ticker 8080:8080` to expose the `stock-ticker` service
 1. Run `curl localhost:8080/api/daily` in a separate terminal
