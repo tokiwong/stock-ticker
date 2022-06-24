@@ -1,6 +1,6 @@
 # stock-ticker
 
-Stock Ticker is a Go webservice that leverages the [Alpha Vantage](https://www.alphavantage.co/) API to return stock price history for a company over a given number of days.
+Stock Ticker is a Go webservice that leverages the [Alpha Vantage API](https://www.alphavantage.co/) to return stock price history for a company over a given number of days.
 
 ## Getting started
 
@@ -27,7 +27,7 @@ This can also be run on a local kubernetes cluster
 1. Follow steps in [Running on Kubernetes](#running-on-kubernetes)
 
 ### Running on Kubernetes
-1. Create a Kubernetes cluster. 
+1. Make sure you're pointed to the desired kube-context
 1. Run `kubectl apply -k manifests/base` to deploy `stock-ticker`
 1. Run `kubectl port-forward svc/stock-ticker 8080:8080` to expose the `stock-ticker` service
 1. Run `curl localhost:8080/api/daily` in a separate terminal
