@@ -6,6 +6,10 @@ Stock Ticker is a Go webservice that leverages the [Alpha Vantage](https://www.a
 
 `stock-ticker` can be run locally and/or on Kubernetes
 
+```
+docker pull docker.io/tokiwong/stock-ticker:latest  
+```
+
 ### Running locally
 1. Make sure that your current dir is set to the project root
 1. Run `make run`
