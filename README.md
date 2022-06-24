@@ -2,6 +2,11 @@
 
 Stock Ticker is a Go webservice that leverages the [Alpha Vantage API](https://www.alphavantage.co/) to return stock price history for a company over a given number of days.
 
+## Prerequisites
+- [Go 1.18+](https://go.dev/learn/)
+- [Docker](https://www.docker.com/get-started/)
+- [Kubectl](https://kubernetes.io/docs/tasks/tools/)
+
 ## Getting started
 
 `stock-ticker` can be run locally and/or on Kubernetes
@@ -17,7 +22,6 @@ docker pull docker.io/tokiwong/stock-ticker:latest
 
 #### Docker
 This can be run on a local docker container
-1. [How to set up Docker](https://www.docker.com/get-started/)
 1. Run `make container-run`
 1. Run `curl localhost:8080/api/daily` in a separate terminal
 
